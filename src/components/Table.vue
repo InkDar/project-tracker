@@ -4,10 +4,14 @@
       {{ tableName }}
       <button class="dropdown">
         <span class="dropdown" @mouseover="showList = true">. . .</span>
-        <ul v-show="showList" @mouseleave="showList = false" class="dropdown-context">
-          <li>Archive list</li>
-          <li @click="removeList()">Remove list</li>
-          <li @click="clearList()">Clear List</li>
+        <ul
+          v-show="showList"
+          @mouseleave="showList = false"
+          class="dropdown-context"
+        >
+          <li class="dropdown-item">Archive list</li>
+          <li class="dropdown-item" @click="removeList()">Remove list</li>
+          <li class="dropdown-item" @click="clearList()">Clear List</li>
         </ul>
       </button>
     </div>
@@ -36,21 +40,19 @@ export default {
       type: String,
     },
   },
-  setup(props: string): unknown {
+  setup(props): unknown {
     const store = useStore();
     const showForm = ref(false);
     const showList = ref(false);
-    const itemList = computed(() =>
-      store.getters.getByTableName(props.tableName)
-    );
+    const itemList = computed(() => store.getters.getByTableName(props.tableName));
 
     const removeList = () => {
       clearList();
-      store.dispatch('removeList', props.tableName);
+      store.dispatch("removeList", props.tableName);
     };
 
     const clearList = () => {
-      store.dispatch('clearList', props.tableName);
+      store.dispatch("clearList", props.tableName);
     };
 
     const closeForm = (item: string) => {
@@ -122,7 +124,7 @@ export default {
   float: right;
   writing-mode: vertical-rl;
   position: relative;
-  color:  #dfe5e8;
+  color: #dfe5e8;
   font-weight: 900;
   cursor: pointer;
 }
@@ -133,10 +135,10 @@ export default {
   width: 100px;
   height: 60px;
   list-style: none;
-  background-color: #617d8a; 
+  background-color: #617d8a;
   position: absolute;
-  margin: 10px 0 0 0;
-  color:#dfe5e8;
-  text-align:initial;
+  color: #dfe5e8;
+  text-align: initial;
+  padding-inline-start: 0px;
 }
 </style>
